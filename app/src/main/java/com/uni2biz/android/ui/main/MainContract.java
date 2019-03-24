@@ -6,5 +6,4 @@ public interface MainContract {
         void onValidateSuccess();
         void onValidationError(String msg);
     }
-
 }

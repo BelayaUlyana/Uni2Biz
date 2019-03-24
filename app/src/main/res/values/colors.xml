@@ -8,4 +8,5 @@
     <color name="colorGreenPressed">#96BC33</color>
     <color name="colorRedNormal">#ed6333</color>
     <color name="colorRedPressed">#d94f1f</color>
+    <color name="colorText">#222</color>
 </resources>

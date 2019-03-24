@@ -27,7 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnPhoto">
 
-
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constrLoyout"
             android:layout_width="match_parent"
@@ -36,7 +35,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
             <TextView
                 android:id="@+id/tabToUpload"
@@ -62,7 +60,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tabToUpload" />
-
 
             <EditText
                 android:id="@+id/UserName"
@@ -181,7 +178,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/role" />
 
-
             <TextView
                 android:id="@+id/byTipping"
                 android:layout_width="match_parent"
@@ -238,7 +234,5 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkBox" />
         </android.support.constraint.ConstraintLayout>
-
-
     </android.support.v7.widget.CardView>
 </FrameLayout>

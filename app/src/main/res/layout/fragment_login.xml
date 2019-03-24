@@ -153,10 +153,7 @@
                         android:textColor="#fff"
                         android:textColorLink="@color/colorGreenPressed" />
                 </LinearLayout>
-
             </android.support.constraint.ConstraintLayout>
-
         </android.support.v7.widget.CardView>
     </LinearLayout>
-
 </FrameLayout>
