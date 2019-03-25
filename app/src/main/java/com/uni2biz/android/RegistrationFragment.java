@@ -1,6 +1,8 @@
 package com.uni2biz.android;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
+
 public class RegistrationFragment extends Fragment {
 
 
@@ -17,11 +22,7 @@ public class RegistrationFragment extends Fragment {
         return new RegistrationFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
+    CircleImageView btnAvatar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +36,7 @@ public class RegistrationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FloatingActionButton btnAvatar = view.findViewById(R.id.btnPhoto);
+        btnAvatar = view.findViewById(R.id.btnPhoto);
         btnAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,9 +56,12 @@ public class RegistrationFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == KEY_REQUEST_CODE_GALLERY) {
+        if (requestCode == KEY_REQUEST_CODE_GALLERY && data != null) {
             // достать данные из галлереи и вставить в imageview
+            Uri photoUri = data.getData();
+            btnAvatar.setImageURI(photoUri);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

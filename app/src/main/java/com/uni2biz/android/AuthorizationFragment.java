@@ -6,24 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import com.uni2biz.android.ui.main.MainPresenter;
 
-public class LoginFragment extends Fragment {
+public class AuthorizationFragment extends Fragment {
 
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
+    private EditText mLogin;
+    private EditText mPassword;
+    MainPresenter presenter;
+
+    public static AuthorizationFragment newInstance() {
+        return new AuthorizationFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_authorization, container, false);
+        mLogin = view.findViewById(R.id.etUserName);
+        mPassword= view.findViewById(R.id.etPassword);
+
         Button btnRegistration = view.findViewById(R.id.btnRegistration);
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,13 +65,10 @@ public class LoginFragment extends Fragment {
 
 
     private void validateLogin() {
-        // make validation on input data and if ok send request to server
-        // (actually to presenter -> presenter to model -> model back to presenter -> presenter to view)
-     /*   presenter.validate(
-                ((TextView) findViewById(R.id.etUserName)).getText().toString().trim(),
-                ((TextView) findViewById(R.id.etPassword)).getText().toString().trim()
-        );*/
+        presenter.validate(
+                (mLogin.getText().toString().trim()),
+                (mPassword.getText().toString().trim())
+        );
     }
-
 
 }

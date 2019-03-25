@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.uni2biz.android.LoginFragment;
+import com.uni2biz.android.AuthorizationFragment;
 import com.uni2biz.android.R;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
@@ -15,13 +15,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //presenter = new MainPresenter(this);
         openFragment();
     }
 
     @Override
     public void onValidateSuccess() {
         //success - go to profile
+        System.out.println("ValidateSuccess");
     }
 
     @Override
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         //if (false) {   // if user doesn't logged in
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.container);
         if (f == null) {
-            f = LoginFragment.newInstance(); // start with open first login view
+            f = AuthorizationFragment.newInstance(); // start with open first login view
         }
         Log.e("TAG", f.toString());
         getSupportFragmentManager().beginTransaction().add(R.id.container, f).commit();

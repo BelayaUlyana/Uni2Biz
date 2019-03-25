@@ -15,6 +15,7 @@ public class MainPresenter {
         // validation:
         if (login.length() > 5 && !password.isEmpty() && password.length() > 5) {
             listener.onValidateSuccess();
+            System.out.println("ValidateSuccess");
         } else {
             listener.onValidationError("fill all fields please!");
         }
