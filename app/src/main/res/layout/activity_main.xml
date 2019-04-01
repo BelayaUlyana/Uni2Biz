@@ -6,7 +6,7 @@
     android:background="@drawable/bg_start_activity"
     android:layerType="software"
     android:scrollbars="none"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.MainActivity">
 
     <FrameLayout
         android:id="@+id/container"

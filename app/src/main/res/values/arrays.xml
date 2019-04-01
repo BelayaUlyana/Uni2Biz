@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="titles">
+        <item>Title</item>
+        <item>Mr.</item>
+        <item>Ms.</item>
+        <item>Mrs.</item>
+    </string-array>
+
+    <string-array name="roles">
+        <item>Role</item>
+        <item>Code writer</item>
+        <item>Content manager</item>
+        <item>Coordinator</item>
+        <item>Designer</item>
+        <item>Marketing</item>
+        <item>QA testing</item>
+        <item>Translator</item>
+        <item>I have no idea</item>
+    </string-array>
+</resources>
