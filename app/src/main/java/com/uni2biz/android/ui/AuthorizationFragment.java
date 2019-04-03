@@ -1,5 +1,6 @@
 package com.uni2biz.android.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -11,17 +12,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.uni2biz.android.R;
-import com.uni2biz.android.mvp.AuthorizationVP;
+import com.uni2biz.android.mvp.AuthorizationMVP;
+import com.uni2biz.android.mvp.FragmentNavigation;
 import com.uni2biz.android.presenters.AuthorizationPresenter;
 
-public class AuthorizationFragment extends Fragment implements AuthorizationVP.View {
+public class AuthorizationFragment extends Fragment implements AuthorizationMVP.View {
 
     private EditText mLogin;
     private EditText mPassword;
-    AuthorizationVP.Presenter presenter;
+    AuthorizationMVP.Presenter presenter;
+    private FragmentNavigation mListener;
 
     public static AuthorizationFragment newInstance() {
         return new AuthorizationFragment();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentNavigation) {
+            mListener = (FragmentNavigation) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement FragmentNavigation");
+        }
     }
 
     @Override
@@ -35,7 +49,7 @@ public class AuthorizationFragment extends Fragment implements AuthorizationVP.V
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.openRegistrationFragment(getActivity().getSupportFragmentManager());
+                mListener.openRegistrationFragment();
             }
         });
 
@@ -43,7 +57,7 @@ public class AuthorizationFragment extends Fragment implements AuthorizationVP.V
         btnForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.openForgotPasswordFragment(getActivity().getSupportFragmentManager());
+                mListener.openForgotPasswordFragment();
             }
         });
 
@@ -58,14 +72,18 @@ public class AuthorizationFragment extends Fragment implements AuthorizationVP.V
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
     public void onValidateSuccess() {
         System.out.println("ValidateSuccess -> callback to activity to open another fragment/activity");
-//        callback.onLogin();
     }
 
     @Override
     public void onValidationError(String msg) {
-//        Toast.makeText(this.getActivity(), msg, Toast.LENGTH_LONG).show();
         System.out.println("ValidationError -> " + msg);
     }
 }
