@@ -15,7 +15,7 @@
     <string name="last_name">Last Name</string>
     <string name="phone">Phone</string>
     <string name="email">Email</string>
-    <string name="university">University</string>
+    <string name="city">City</string>
     <string name="role">Role</string>
     <string name="by_tipping_register">By tipping REGISTER I accept</string>
     <string name="terms_of_service">terms of service</string>
@@ -24,7 +24,17 @@
     <string name="email_address">Email address</string>
     <string name="send">Send</string>
     <string name="tap_to_upload">Tap to upload</string>
-    <string name="ValidateSuccess">ValidateSuccess</string>
+    <string name="ValidateSuccess">ValidationSuccess</string>
     <string name="ValidationError">ValidationError</string>
     <string name="СhoosePhoto">Сhoose photo</string>
+    <string name="userValide">User Name is not valid</string>
+    <string name="emailValide">Email is not valide</string>
+    <string name="pswValide">Password must contain lowercase and uppercase Latin letters and numbers</string>
+    <string name="errorSpinner">Сhoose something</string>
+    <string name="errorFirstName">First Name must contain only letters</string>
+    <string name="errorUserName">User name must contain 4–20 characters, which can be letters and numbers, the first character must be a letter</string>
+    <string name="errorLastName">Last Name must contain only letters</string>
+    <string name="errorPhone">Enter the phone number</string>
+    <string name="errorUniversity">Enter your University</string>
+    <string name="fillAllFields">Fill all fields please!</string>
 </resources>

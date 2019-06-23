@@ -1,12 +1,10 @@
-package com.uni2biz.android.ui;
+package org.uni2biz;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.uni2biz.android.R;
 
 public class ForgotPasswordFragment extends Fragment {
 

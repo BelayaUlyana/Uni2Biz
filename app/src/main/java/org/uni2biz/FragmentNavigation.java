@@ -1,4 +1,4 @@
-package com.uni2biz.android.mvp;
+package org.uni2biz;
 
 public interface FragmentNavigation {
     void openRegistrationFragment();

@@ -1,26 +1,30 @@
-package com.uni2biz.android.ui;
+package org.uni2biz;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.uni2biz.android.R;
-import com.uni2biz.android.mvp.AuthorizationMVP;
-import com.uni2biz.android.mvp.FragmentNavigation;
-import com.uni2biz.android.presenters.AuthorizationPresenter;
+import org.uni2biz.API.AuthorizationRequest;
+import org.uni2biz.API.AuthorizationResponse;
+import org.uni2biz.API.RetrofitClient;
 
-public class AuthorizationFragment extends Fragment implements AuthorizationMVP.View {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.HttpException;
+import retrofit2.Response;
 
-    private EditText mLogin;
-    private EditText mPassword;
-    AuthorizationMVP.Presenter presenter;
+public class AuthorizationFragment extends Fragment {
+
+    private EditText mLogin, mPassword;
     private FragmentNavigation mListener;
 
     public static AuthorizationFragment newInstance() {
@@ -42,7 +46,6 @@ public class AuthorizationFragment extends Fragment implements AuthorizationMVP.
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_authorization, container, false);
-        presenter = new AuthorizationPresenter();
         mLogin = view.findViewById(R.id.etUserName);
         mPassword = view.findViewById(R.id.etPassword);
         Button btnRegistration = view.findViewById(R.id.btnRegistration);
@@ -65,7 +68,7 @@ public class AuthorizationFragment extends Fragment implements AuthorizationMVP.
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.validate(mLogin.getText().toString(), mPassword.getText().toString());
+                validate(mLogin.getText().toString(), mPassword.getText().toString());
             }
         });
         return view;
@@ -77,13 +80,45 @@ public class AuthorizationFragment extends Fragment implements AuthorizationMVP.
         mListener = null;
     }
 
-    @Override
-    public void onValidateSuccess() {
-        System.out.println("ValidateSuccess -> callback to activity to open another fragment/activity");
+
+    private void validate(String login, String password) {
+        if (login.length() > 4 && !password.isEmpty() && password.length() > 4) {
+            onValidateSuccess();
+        } else {
+            onValidationError(getString(R.string.fillAllFields));
+        }
     }
 
-    @Override
+    public void onValidateSuccess() {
+        System.out.println("ValidateSuccess -> callback to activity to open another fragment/activity");
+
+        Call<AuthorizationResponse> call = RetrofitClient.getApiService().auth(
+                new AuthorizationRequest(mLogin.getText().toString(), Helpers.md5(mPassword.getText().toString())));
+        call.enqueue(new Callback<AuthorizationResponse>() {
+            @Override
+            public void onResponse(Call<AuthorizationResponse> call, Response<AuthorizationResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(),"Authorization Successful", Toast.LENGTH_LONG).show();
+                } else {
+                    String msg = response.body().getMessage();
+                    String fields = response.body().getFields();
+                    int code = response.body().getCode();
+                    String res = response.body().getResponse();
+                    Log.e("MSG",msg + "***" + fields + "***" + code + "***" + res);
+                    Toast.makeText(getContext(), msg + " " + fields + " " + code + " " + res, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthorizationResponse> call, Throwable throwable) {
+                if (throwable instanceof HttpException) {
+                    HttpException e = (HttpException) throwable;
+                }
+            }
+        });
+    }
+
     public void onValidationError(String msg) {
-        System.out.println("ValidationError -> " + msg);
+        Toast.makeText(this.getActivity(), msg, Toast.LENGTH_LONG).show();
     }
 }
